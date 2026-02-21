@@ -1,13 +1,17 @@
 ﻿"use client";
 
-import { motion, useReducedMotion } from "framer-motion";
-import type { HTMLAttributes } from "react";
+import { motion, useReducedMotion, type HTMLMotionProps } from "framer-motion";
+import type { ReactNode } from "react";
+
+type GlowCardProps = Omit<HTMLMotionProps<"div">, "children"> & {
+  children?: ReactNode;
+};
 
 export default function GlowCard({
   className,
   children,
   ...rest
-}: HTMLAttributes<HTMLDivElement>) {
+}: GlowCardProps) {
   const shouldReduceMotion = useReducedMotion();
 
   return (
