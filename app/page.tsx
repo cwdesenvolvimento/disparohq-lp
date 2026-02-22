@@ -8,11 +8,12 @@ import {
   Megaphone,
   Send,
   Shield,
-  Users
+  Users,
 } from "lucide-react";
 import AnimatedSection from "../components/AnimatedSection";
 import GlowCard from "../components/GlowCard";
 import HeroMockup from "../components/HeroMockup";
+import Image from "next/image";
 import FAQAccordion from "../components/FAQAccordion";
 import StatCounter from "../components/StatCounter";
 import WaitlistForm from "../components/WaitlistForm";
@@ -22,7 +23,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 const metrics = [
   { label: "Setup em minutos" },
   { label: "Agendamentos ilimitados" },
-  { label: "Controle de grupos em um só lugar" }
+  { label: "Controle de grupos em um só lugar" },
 ];
 
 const audiences = [
@@ -30,20 +31,20 @@ const audiences = [
     title: "Achadinhos / Promoções",
     description:
       "Organize grupos, programe postagens e mantenha consistência no conteúdo.",
-    icon: Users
+    icon: Users,
   },
   {
     title: "E-commerce",
     description:
       "Recuperação de carrinho, pós-compra, status de pedido e suporte com agilidade.",
-    icon: Send
+    icon: Send,
   },
   {
     title: "Serviços / Operações",
     description:
       "Confirmações, lembretes e avisos (agenda, logística, eventos, cobranças).",
-    icon: CalendarClock
-  }
+    icon: CalendarClock,
+  },
 ];
 
 const benefits = [
@@ -51,52 +52,51 @@ const benefits = [
     title: "Gestão de grupos completa",
     description:
       "Criar/importar, atualizar nome/foto/descrição, administrar membros e admins.",
-    icon: Users
+    icon: Users,
   },
   {
     title: "Envio em massa com personalização",
     description:
       "Variáveis, conteúdos dinâmicos e listas simples para segmentar melhor.",
-    icon: Megaphone
+    icon: Megaphone,
   },
   {
     title: "Agendamento e fila de disparos",
     description: "Programe agora e deixe rodando o dia todo.",
-    icon: CalendarClock
+    icon: CalendarClock,
   },
   {
     title: "Transacional e notificações",
     description:
       "Mensagens de compra, status, lembretes e alertas via WhatsApp e SMS.",
-    icon: Bell
+    icon: Bell,
   },
   {
     title: "Painel único",
-    description:
-      "Acompanhamento do que foi enviado e do que está agendado.",
-    icon: LayoutDashboard
+    description: "Acompanhamento do que foi enviado e do que está agendado.",
+    icon: LayoutDashboard,
   },
   {
     title: "Rotina mais leve",
-    description:
-      "Menos trampo no celular, mais consistência e controle.",
-    icon: Shield
-  }
+    description: "Menos trampo no celular, mais consistência e controle.",
+    icon: Shield,
+  },
 ];
 
 const steps = [
   {
     title: "Conecte e organize",
-    description: "Crie ou importe seus grupos e deixe tudo padronizado."
+    description: "Crie ou importe seus grupos e deixe tudo padronizado.",
   },
   {
     title: "Prepare suas mensagens",
-    description: "Escreva, personalize e defina botões/enquetes."
+    description: "Escreva, personalize e defina botões/enquetes.",
   },
   {
     title: "Agende ou dispare",
-    description: "Publique na hora ou programe uma sequência para o dia inteiro."
-  }
+    description:
+      "Publique na hora ou programe uma sequência para o dia inteiro.",
+  },
 ];
 
 const useCases = [
@@ -105,74 +105,74 @@ const useCases = [
     items: [
       "“Bom dia! Promoções de hoje ✅” (post fixo/rotina)",
       "Sequência de posts por horários (manhã/tarde/noite)",
-      "Troca de foto/descrição do grupo para campanhas especiais"
-    ]
+      "Troca de foto/descrição do grupo para campanhas especiais",
+    ],
   },
   {
     title: "E-commerce / Transacional",
     items: [
       "Confirmação de pedido + prazo",
       "Status: “pedido enviado / saiu para entrega”",
-      "Recuperação de carrinho com mensagem personalizada"
-    ]
+      "Recuperação de carrinho com mensagem personalizada",
+    ],
   },
   {
     title: "Operação / Serviços",
     items: [
       "Lembrete de consulta/agendamento",
       "Aviso de cobrança/pendência",
-      "Confirmação de presença em evento"
-    ]
-  }
+      "Confirmação de presença em evento",
+    ],
+  },
 ];
 
 const faqItems = [
   {
     question: "Para que tipos de negócio o DisparoHQ serve?",
     answer:
-      "Para qualquer tipo de negócio e operação que necessita do envio de mensagens (promoções, avisos, recuperação de conta), perfis de achadinhos e divulgação, e-commerces "
+      "Para qualquer tipo de negócio e operação que necessita do envio de mensagens (promoções, avisos, recuperação de conta), perfis de achadinhos e divulgação, e-commerces ",
   },
   {
     question: "Consigo agendar mensagens e executar ações na hora?",
     answer:
-      "Sim. Você pode programar envios e ações de gestão, ou executá-las imediatamente."
+      "Sim. Você pode programar envios e ações de gestão, ou executá-las imediatamente.",
   },
   {
     question: "Preciso solicitar aprovação de templates de mensagens?",
     answer:
-      "Depende. No caso dos grupos, você pode criar e enviar mensagens com o texto e personalização que preferir (imagens, videos, botões, enquetes), sem a necessidade de aprovação de template. Nas mensagens transacionais, você cria o template de mensagem direto no nosso painel, para facilitar o uso com a sua plataforma, mas não é necessário aguardar aprovação."
+      "Depende. No caso dos grupos, você pode criar e enviar mensagens com o texto e personalização que preferir (imagens, videos, botões, enquetes), sem a necessidade de aprovação de template. Nas mensagens transacionais, você cria o template de mensagem direto no nosso painel, para facilitar o uso com a sua plataforma, mas não é necessário aguardar aprovação.",
   },
   {
     question: "Dá para importar grupos que eu já tenho?",
     answer:
-      "Sim. Você consegue trazer grupos existentes para gerenciar e operar pelo painel, ou criar novos grupos e começar do zero."
+      "Sim. Você consegue trazer grupos existentes para gerenciar e operar pelo painel, ou criar novos grupos e começar do zero.",
   },
   {
     question: "Posso gerenciar membros e administradores?",
     answer:
-      "Sim. O painel permite adicionar/remover membros e administrar permissões conforme o fluxo do grupo."
+      "Sim. O painel permite adicionar/remover membros e administrar permissões conforme o fluxo do grupo.",
   },
   {
     question:
       "O DisparoHQ serve para mensagens transacionais (pedido, entrega, lembrete)?",
     answer:
-      "Sim. Além de disparos em massa, temos uma API dedicada para mensagens transacionais com fácil integração, para você poder se comunicar de forma pontual com seus clientes."
+      "Sim. Além de disparos em massa, temos uma API dedicada para mensagens transacionais com fácil integração, para você poder se comunicar de forma pontual com seus clientes.",
   },
   {
     question: "Como vocês lidam com opt-in e descadastro?",
     answer:
-      "Recomendamos operar com base em consentimento. Você poderá definir boas práticas (listas e regras) para reduzir reclamações e manter qualidade de entrega."
+      "Recomendamos operar com base em consentimento. Você poderá definir boas práticas (listas e regras) para reduzir reclamações e manter qualidade de entrega.",
   },
   {
     question: "Tem limite de mensagens?",
     answer:
-      "Mensagens para grupos são ilimitadas. Os disparos em massa e envios transacionais são administrados por créditos adquiridos de forma segura dentro da plataforma. Ao entrar na lista, informe seu volume/mês para priorizarmos o melhor pacote de testes."
+      "Mensagens para grupos são ilimitadas. Os disparos em massa e envios transacionais são administrados por créditos adquiridos de forma segura dentro da plataforma. Ao entrar na lista, informe seu volume/mês para priorizarmos o melhor pacote de testes.",
   },
   {
     question: "Quando será liberado o acesso à versão beta?",
     answer:
-      "A previsão é para a segunda quinzena de março. Quem entrar na lista receberá o convite assim que liberarmos as vagas."
-  }
+      "A previsão é para a segunda quinzena de março. Quem entrar na lista receberá o convite assim que liberarmos as vagas.",
+  },
 ];
 
 export default function HomePage() {
@@ -232,18 +232,18 @@ export default function HomePage() {
     () => ({
       hidden: {},
       visible: {
-        transition: { staggerChildren: 0.08 }
-      }
+        transition: { staggerChildren: 0.08 },
+      },
     }),
-    []
+    [],
   );
 
   const itemVariants = useMemo(
     () => ({
       hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 14 },
-      visible: { opacity: 1, y: 0 }
+      visible: { opacity: 1, y: 0 },
     }),
-    [shouldReduceMotion]
+    [shouldReduceMotion],
   );
 
   return (
@@ -254,7 +254,9 @@ export default function HomePage() {
         }`}
       >
         <div className="container-pad mx-auto flex items-center justify-between py-4">
-          <span className="font-display text-xl font-semibold">DisparoHQ</span>
+          <div className="flex items-center gap-3">
+            <Image src="/logo.svg" alt="DisparoHQ" width={120} height={32} />
+          </div>
           <Link
             href="#early-access"
             className="rounded-full border border-border px-4 py-2 text-sm font-medium text-muted transition hover:border-accent hover:text-accent focus-visible:focus-ring"
@@ -277,7 +279,7 @@ export default function HomePage() {
               style={{
                 background: glowEnabled
                   ? "radial-gradient(220px circle at var(--cursor-x, 50%) var(--cursor-y, 50%), rgba(250, 12, 247, 0.2), transparent 70%)"
-                  : "none"
+                  : "none",
               }}
             />
             <div className="pointer-events-none absolute inset-0 opacity-30 [background-image:radial-gradient(rgba(15,23,42,0.15)_1px,transparent_1px)] [background-size:26px_26px]" />
@@ -285,7 +287,11 @@ export default function HomePage() {
               <motion.div
                 className="pointer-events-none absolute -left-16 top-10 h-40 w-40 rounded-full bg-[rgba(43,179,1,0.18)] blur-3xl"
                 animate={{ opacity: [0.4, 0.6, 0.4], scale: [1, 1.1, 1] }}
-                transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+                transition={{
+                  duration: 10,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
               />
             )}
             <div className="relative z-10 stagger">
@@ -343,7 +349,17 @@ export default function HomePage() {
             </div>
 
             <div className="relative z-10 flex flex-col gap-4">
-              <HeroMockup />
+              <div className="overflow-hidden rounded-2xl border border-border bg-white p-1 shadow-soft">
+                <div className="relative aspect-[16/10] w-full">
+                  <Image
+                    src="/dhq-img.png"
+                    alt="DisparoHQ"
+                    fill
+                    className="object-contain"
+                    priority
+                  />
+                </div>
+              </div>
               <div className="grid gap-3 rounded-2xl border border-border bg-white p-4 shadow-soft">
                 <p className="text-sm text-muted">
                   Para quem envia promoções o dia todo e não quer perder tempo
@@ -362,7 +378,7 @@ export default function HomePage() {
         <AnimatedSection className="section-pad bg-surface">
           <div className="container-pad mx-auto">
             <h2 className="font-display text-3xl font-semibold">
-              Feito para quem vive de WhatsApp
+              Feito para quem vive de Mensagem
             </h2>
             <motion.div
               className="mt-8 grid gap-6 md:grid-cols-3"
@@ -379,7 +395,9 @@ export default function HomePage() {
                       <Icon className="h-5 w-5 text-primary" />
                     </div>
                     <h3 className="mt-4 text-lg font-semibold">{item.title}</h3>
-                    <p className="mt-2 text-sm text-muted">{item.description}</p>
+                    <p className="mt-2 text-sm text-muted">
+                      {item.description}
+                    </p>
                   </GlowCard>
                 );
               })}
@@ -407,7 +425,9 @@ export default function HomePage() {
                       <Icon className="h-5 w-5 text-primary" />
                     </div>
                     <h3 className="mt-4 text-lg font-semibold">{item.title}</h3>
-                    <p className="mt-2 text-sm text-muted">{item.description}</p>
+                    <p className="mt-2 text-sm text-muted">
+                      {item.description}
+                    </p>
                   </GlowCard>
                 );
               })}
@@ -493,7 +513,7 @@ export default function HomePage() {
                   "Acesso antecipado ao DisparoHQ",
                   "Canal direto para sugerir melhorias",
                   "Migração/entrada assistida (quando necessário)",
-                  "Condições especiais de lançamento para quem participa"
+                  "Condições especiais de lançamento para quem participa",
                 ].map((item) => (
                   <motion.li key={item} variants={itemVariants}>
                     {item}
@@ -522,8 +542,8 @@ export default function HomePage() {
                     Pronto para centralizar seus disparos e grupos?
                   </h2>
                   <p className="mt-3 text-sm text-muted">
-                    Entre na lista do beta e ajude a moldar o DisparoHQ para o seu
-                    fluxo real.
+                    Entre na lista do beta e ajude a moldar o DisparoHQ para o
+                    seu fluxo real.
                   </p>
                 </div>
                 <div className="rounded-2xl border border-border bg-white p-6 shadow-card">
@@ -546,8 +566,8 @@ export default function HomePage() {
       <footer className="border-t border-border py-8">
         <div className="container-pad mx-auto flex flex-col gap-4 text-sm text-muted md:flex-row md:items-center md:justify-between">
           <span>
-            © {new Date().getFullYear()} DisparoHQ Mensageria Pro. Todos os
-            direitos reservados.
+            © {new Date().getFullYear()} Disparo Headquarters Mensageria Pro.
+            Todos os direitos reservados.
           </span>
           <div className="flex flex-wrap gap-4">
             <Link href="/privacy" className="hover:text-accent">
